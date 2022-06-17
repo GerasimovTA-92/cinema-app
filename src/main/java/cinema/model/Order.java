@@ -19,18 +19,16 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "order_date")
-    private LocalDateTime orderDate;
-    @ManyToOne
-    private User user;
     @OneToMany
     @JoinTable(name = "orders_tickets",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "ticket_id"))
     private List<Ticket> tickets;
-
-    public Order() {
-    }
+    @Column(name = "order_time")
+    private LocalDateTime orderTime;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Long getId() {
         return id;
@@ -38,22 +36,6 @@ public class Order {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public List<Ticket> getTickets() {
@@ -64,13 +46,28 @@ public class Order {
         this.tickets = tickets;
     }
 
+    public LocalDateTime getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(LocalDateTime orderTime) {
+        this.orderTime = orderTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Order{"
                 + "id=" + id
-                + ", orderDate=" + orderDate
-                + ", user=" + user
                 + ", tickets=" + tickets
-                + '}';
+                + ", orderTime=" + orderTime
+                + ", user=" + user + '}';
     }
 }
